@@ -15,12 +15,12 @@ public class LeagueController {
     @Autowired
     private LeagueService leagueService;
 
-    @GetMapping
+    @GetMapping (produces = "application/json")
     public ResponseEntity<List<League>> getAllLeagues() {
         return ResponseEntity.ok(leagueService.getAllLeagues());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value ="/{id}", produces = "application/json")
     public ResponseEntity<League> getLeagueById(@PathVariable Long id) {
         League league = leagueService.getLeagueById(id);
         if (league != null) {

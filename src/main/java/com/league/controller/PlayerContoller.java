@@ -26,12 +26,12 @@ public class PlayerContoller {
     @Autowired
     private LeagueService leagueService;
 
-        @GetMapping
+    @GetMapping (produces = "application/json")
     public ResponseEntity<List<Player>> getAllPlayers() {
         return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Player> getPlayerById(@PathVariable Long id) {
         Player player = playerService.getPlayerById(id);
         if (player != null) {
