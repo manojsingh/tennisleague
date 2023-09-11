@@ -52,11 +52,11 @@
         </dependency>
 
         <!-- H2 database for local development -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
 
         <!-- Azure Cosmos DB -->
         <dependency>
@@ -71,11 +71,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>9.4.0.jre11</version>
-        </dependency>
+        </dependency> -->
 
         <!-- Spring Boot Starter Test for testing -->
         <dependency>

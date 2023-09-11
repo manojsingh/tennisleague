@@ -2,7 +2,6 @@ package com.league.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +17,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "league")
 public class League {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
