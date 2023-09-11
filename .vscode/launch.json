@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MainApplication<tennisleague>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.league.MainApplication",
+            "projectName": "tennisleague",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
