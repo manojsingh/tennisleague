@@ -1,0 +1,47 @@
+name: Setup Azure Resources
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AZURE_RESOURCE_GROUP: myResourceGroup
+  CONTAINER_REGISTRY_NAME: myContainerRegistry
+  AKS_CLUSTER_NAME: myAKSCluster
+  SQL_SERVER_NAME: mySqlServer
+  SQL_DATABASE_NAME: myDatabase
+  KEY_VAULT_NAME: myKeyVault
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Create Resource Group
+      run: az group create --name ${{ env.AZURE_RESOURCE_GROUP }} --location eastus
+
+    - name: Create Azure Container Registry
+      run: az acr create --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.CONTAINER_REGISTRY_NAME }} --sku Basic
+      
+    - name: Create AKS Cluster
+      run: az aks create --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.AKS_CLUSTER_NAME }} --node-count 1 --enable-addons monitoring --generate-ssh-keys
+
+    - name: Create Azure SQL Server
+      run: az sql server create --name ${{ env.SQL_SERVER_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --location eastus --admin-user myAdminUser --admin-password myStrongPassword123!
+    
+    - name: Create Azure SQL Database
+      run: az sql db create --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --server ${{ env.SQL_SERVER_NAME }} --name ${{ env.SQL_DATABASE_NAME }} --edition Basic
+    
+    - name: Create Azure Key Vault
+      run: az keyvault create --name ${{ env.KEY_VAULT_NAME }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --location eastus
+      
+    - name: Logout from Azure
+      run: az logout
