@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-tennis-league-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tennisleagueapp
+  template:
+    metadata:
+      labels:
+        app: tennisleagueapp
+    spec:
+      containers:
+      - name: tennisleagueapp
+        image: tennisleagueacr.azurecr.io/tennisleagueapp:latest # replace with your ACR image
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tennis-league-service
+spec:
+  type: LoadBalancer  # Exposes service to the public
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  selector:
+    app: tennisleagueapp
