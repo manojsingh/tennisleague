@@ -8,9 +8,6 @@ on:
 
 env:
   REGISTRY_NAME: ${{ secrets.REGISTRY_NAME }}
-  AZURE_SERVICE_PRINCIPAL: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}
-  AZURE_SERVICE_PASSWORD: ${{ secrets.AZURE_SERVICE_PASSWORD }}
-  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   DB_USERNAME: ${{ secrets.DB_USERNAME }}
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
   AKS_CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}
@@ -23,6 +20,15 @@ jobs:
 
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Maven Build
+      run: mvn clean package
 
     - name: Azure Login
       uses: azure/login@v1
